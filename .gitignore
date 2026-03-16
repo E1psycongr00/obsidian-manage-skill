@@ -1,0 +1,8 @@
+# Obsidian local vault artifacts
+.obsidian/
+**/.obsidian/
+.trash/
+**/.trash/
+
+# Local test vaults
+obsidian_tests/
