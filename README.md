@@ -58,8 +58,7 @@ npx skills add <OWNER>/<REPO> --agent codex --skill using-vaults -y
 
 ## Documentation
 
-- [skills.sh compatibility notes](./docs/skills-sh.md)
-- [Codex installation guide](./codex_install.md)
+- [Codex installation guide](./docs/codex_install.md)
 
 ## Notes for maintainers
 
