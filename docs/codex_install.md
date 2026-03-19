@@ -32,5 +32,5 @@ npx skills add E1psycongr00/obsidian-manage-skill --skill --agent codex
 Install one specific skill only:
 
 ```bash
-npx skills add E1psycongr00/obsidian-manage-skill --agent codex --skill using-vaults
+npx skills add E1psycongr00/obsidian-manage-skill --agent codex --skill vault-content
 ```

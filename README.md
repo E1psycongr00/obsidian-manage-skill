@@ -5,10 +5,8 @@ It is organized for `skills.sh` discovery and can be installed into supported ag
 
 ## Included skills
 
-- `using-vaults`: Entry-point orchestration skill for Obsidian Vault work. Routes a request to the right downstream skill.
 - `vault-content`: Focuses on note-type decisions, note structure, writing, and rewrites.
 - `vault-manage`: Focuses on file contracts, frontmatter validation, module placement, and vault governance.
-- `note-brainstorming`: Collaborative brainstorming skill for improving note quality before or during drafting.
 - `playwright-image-reference`: Captures clean image references from websites with Playwright MCP.
 
 ## Repository structure
@@ -17,13 +15,8 @@ This repository intentionally uses a multi-skill layout:
 
 ```text
 skills/
-├── note-brainstorming/
-│   └── SKILL.md
 ├── playwright-image-reference/
 │   └── SKILL.md
-├── using-vaults/
-│   ├── SKILL.md
-│   └── references/
 ├── vault-content/
 │   ├── SKILL.md
 │   └── references/
@@ -44,16 +37,16 @@ List the skills exposed by this repository:
 npx skills add . --list
 ```
 
-Install the main Obsidian entry-point skill into Codex for the current project:
+Install the note writing skill into Codex for the current project:
 
 ```bash
-npx skills add . --agent codex --skill using-vaults -y
+npx skills add . --agent codex --skill vault-content -y
 ```
 
 Install from GitHub instead of a local path:
 
 ```bash
-npx skills add <OWNER>/<REPO> --agent codex --skill using-vaults -y
+npx skills add <OWNER>/<REPO> --agent codex --skill vault-content -y
 ```
 
 ## Documentation
