@@ -13,3 +13,7 @@ obsidian_tests/
 
 # Generated skill evaluation workspaces
 skills/*-workspace/
+
+
+# agent ignore
+/.agents/
