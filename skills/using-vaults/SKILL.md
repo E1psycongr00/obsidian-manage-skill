@@ -1,6 +1,6 @@
 ---
 name: using-vaults
-description: Obsidian Vault 작업의 진입점 스킬. 노트 작성, 리라이트, 타입 판단, 브레인스토밍, frontmatter, 파일 위치, 모듈 생성/이동, 검증처럼 Vault 관련 요청이 들어왔을 때 어떤 하위 스킬(note-brainstorming, vault-content, vault-manage)을 어떤 순서와 우선순위로 사용할지 결정할 때 사용한다. 특히 사용자가 노트의 내용 자체를 더 좋아지게 만들고 싶어 하거나, 질문과 대화를 통해 품질을 높이려는 의도가 보이면 항상 note-brainstorming을 동반한다.
+description: Obsidian Vault 작업의 진입점 스킬. 사용자가 노트 작성·리라이트·브레인스토밍·frontmatter 정리·파일 이동·검증·웹 이미지 레퍼런스 수집처럼 Vault 관련 요청을 하면 어떤 하위 스킬(note-brainstorming, vault-content, vault-manage, playwright-image-reference)을 어떤 순서로 쓸지 정할 때 바로 사용한다. 특히 노트의 품질을 대화로 끌어올리고 싶으면 note-brainstorming을 먼저 동반하고, 웹 이미지를 노트 레퍼런스로 남기려면 playwright-image-reference를 연결한다.
 ---
 
 # Using Vaults
@@ -17,26 +17,46 @@ description: Obsidian Vault 작업의 진입점 스킬. 노트 작성, 리라이
 - 혼합 작업이면 실행 순서를 정한다
 - 사용자에게 내부 handoff를 과하게 노출하지 않고 한 흐름처럼 수행한다
 - 품질 개선 의도가 보이면 note-brainstorming을 먼저 켜고, 초안 후에도 필요하면 다시 돌아오게 한다
+- 웹 이미지를 노트 증거물이나 시각 레퍼런스로 남기려면 playwright-image-reference를 연결한다
 - 대상 노트/섹션/산출물 타입이 바뀌면 focus 전환으로 보고, 무엇을 유지하고 무엇을 버릴지 정한다
+
+## Routing Shortcuts
+
+- 질문·탐색·관점 확장·품질 개선 대화가 중심이면 `note-brainstorming`
+- 초안 작성·리라이트·요약·note-type에 맞춘 본문 구성이 중심이면 `vault-content`
+- frontmatter·파일 위치·모듈 구조·validator·attachments 경계가 중심이면 `vault-manage`
+- 웹페이지에서 이미지 자체를 깨끗하게 캡처해 노트 레퍼런스로 남기는 작업이면 `playwright-image-reference`
+- 사용자가 어느 스킬을 써야 하는지 직접 고르게 만들지 않는다. 이 스킬이 내부에서 판단한다.
+
+## User-facing Flow Contract
+
+- 내부적으로는 여러 하위 스킬을 오가더라도, 사용자에게는 하나의 연속된 흐름처럼 보이게 답한다.
+- 혼합 요청에서는 기본적으로 `짧은 방향 제시 또는 visible plan -> 본문/산출물 -> 구조 후속 메모` 순서를 유지한다.
+- 구조 후속(frontmatter, 파일 위치, attachments, validator)은 본문이나 캡처 결과와 섞지 말고 마지막에 짧게 분리한다.
+- 웹 이미지 확보가 포함된 요청은 `선택한 이미지/캡처 기준 -> 노트 반영 방향 -> 저장 후속 규칙` 순서로 정리한다.
+- 사용자가 스킬 이름을 묻지 않았다면 `이제 vault-content로 간다` 같은 내부 handoff 설명은 생략한다.
 
 ## Workflow Decision
 
 1. 사용자가 아직 생각을 정리 중이거나, 논리 점검/관점 확장/질문형 탐색을 원하면 `note-brainstorming`을 먼저 쓴다.
 2. 사용자가 초안 작성까지 원하더라도, "더 좋아지게", "가독성", "흐름", "뭔가 이상함", "마음에 안 듦", "같이 고민"처럼 품질 개선 의도가 보이면 `note-brainstorming`을 항상 동반한다.
-3. 대상 노트, 섹션, 산출물 타입이 바뀌면 focus 전환으로 처리한다. 이때 이전 문서의 섹션 구조, 나열 방식, 톤 같은 포맷 기억은 기본적으로 버린다.
-4. focus 전환 후에도 유지하는 것은 현재 작업에 여전히 맞는 의미 합의, 핵심 관점, 명시적 전역 제약뿐이다.
-5. 이전 브레인스토밍 맥락이 최신 요구와 충돌하거나, 같은 문서의 연장인지 새 대상인지 애매하면 짧게 확인 질문을 한 번 한다.
-6. 사용자가 `이 문서처럼`, `아까처럼`, `같은 구성으로`, `비슷하게 만들어줘`처럼 명시적으로 요청할 때만 이전 문서 포맷을 다시 참조한다.
-7. `note-brainstorming`은 초안 전에 최종 visible plan을 보여주고, 그다음 `vault-content`가 본문을 작성한다.
-8. 사용자가 초안 작성, 리라이트, 요약, note-type에 맞춘 본문 구성을 원하지만 품질 대화 의도가 약하면 `vault-content`를 바로 쓸 수 있다.
-9. 사용자가 frontmatter, 파일 위치, 모듈 생성/이동/아카이빙, attachments 경계, validator 실행을 원하면 `vault-manage`를 쓴다.
-10. 요청이 섞여 있으면 아래 순서를 기본값으로 삼는다.
+3. 사용자가 초안 작성, 리라이트, 요약, note-type에 맞춘 본문 구성을 원하지만 품질 대화 의도가 약하면 `vault-content`를 바로 쓸 수 있다.
+4. 사용자가 frontmatter, 파일 위치, 모듈 생성/이동/아카이빙, attachments 경계, validator 실행을 원하면 `vault-manage`를 쓴다.
+5. 사용자가 웹페이지의 포스터, 썸네일, 제품 사진, 장면 스틸을 깨끗하게 따서 노트에 넣고 싶어 하면 `playwright-image-reference`를 쓴다.
+6. 이미지 캡처와 노트 작성이 함께 있으면 기본 순서는 `playwright-image-reference -> vault-content`다. 이미지 저장 경로/첨부 규칙까지 손대면 마지막에 `vault-manage`를 잇는다.
+7. 대상 노트, 섹션, 산출물 타입이 바뀌면 focus 전환으로 처리한다. 이때 이전 문서의 섹션 구조, 나열 방식, 톤 같은 포맷 기억은 기본적으로 버린다.
+8. focus 전환 후에도 유지하는 것은 현재 작업에 여전히 맞는 의미 합의, 핵심 관점, 명시적 전역 제약뿐이다.
+9. 이전 브레인스토밍 맥락이 최신 요구와 충돌하거나, 같은 문서의 연장인지 새 대상인지 애매하면 짧게 확인 질문을 한 번 한다.
+10. 사용자가 `이 문서처럼`, `아까처럼`, `같은 구성으로`, `비슷하게 만들어줘`처럼 명시적으로 요청할 때만 이전 문서 포맷을 다시 참조한다.
+11. `note-brainstorming`은 초안 전에 최종 visible plan을 보여주고, 그다음 `vault-content`가 본문을 작성한다.
+12. 요청이 섞여 있으면 아래 순서를 기본값으로 삼는다.
    - 브레인스토밍: 중심축, 섹션 흐름, 품질 개선 포인트 확정
+   - 캡처: 노트에 넣을 이미지 레퍼런스 확보
    - 작성: note-type, 핵심 메시지, 본문 전개 반영
    - 적용: frontmatter, 파일 위치, 모듈 반영
    - 검증: 영향 범위 확인과 validator 실행
-11. 초안 후 사용자가 마음에 들어 하지 않으면, 바로 고쳐 쓰는 것만 반복하지 말고 `note-brainstorming`으로 다시 들어가 방향을 재조정한다.
-12. 본문 작성 후 작은 구조 후속(frontmatter, 링크, 위치 정리)만 남았다면 같은 흐름 안에서 마무리한다.
+13. 초안 후 사용자가 마음에 들어 하지 않으면, 바로 고쳐 쓰는 것만 반복하지 말고 `note-brainstorming`으로 다시 들어가 방향을 재조정한다.
+14. 본문 작성 후 작은 구조 후속(frontmatter, 링크, 위치 정리)만 남았다면 같은 흐름 안에서 마무리한다.
 
 ## Priority Rules
 
@@ -56,12 +76,15 @@ description: Obsidian Vault 작업의 진입점 스킬. 노트 작성, 리라이
 - 결과물이 주로 파일 계약(frontmatter, 위치, 모듈 구조, validation)을 바꾸면 `vault-manage`
 - 결과물이 주로 질문, 진단, 관점 확장이라면 `note-brainstorming`
 - 결과물이 더 좋아지기 위한 방향 재조정이라면 초안 전이든 초안 후든 `note-brainstorming`
+- 결과물이 주로 웹 이미지 자체의 확보와 정리라면 `playwright-image-reference`
 - 하나의 요청 안에 둘 이상이 있으면 이 스킬이 순서를 정한다
 
 ## Mixed Patterns
 
 - `note-brainstorming -> plan 공개 -> vault-content`: 탐색 후 초안 작성으로 이어지는 경우
 - `vault-content -> vault-manage`: 본문을 쓴 뒤 frontmatter, 링크, 위치를 맞추는 경우
+- `playwright-image-reference -> vault-content`: 웹 이미지를 확보한 뒤 노트 본문에 반영하는 경우
+- `playwright-image-reference -> vault-manage`: 이미지 저장/attachments 경계까지 정리하는 경우
 - `note-brainstorming -> plan 공개 -> vault-content -> vault-manage`: 새 노트/모듈 작업을 처음부터 끝까지 처리하는 경우
 - `note-brainstorming -> vault-content -> note-brainstorming -> vault-content`: 초안 후 마음에 들지 않아 다시 품질 조정을 하는 경우
 - `vault-manage -> vault-content`: 드물게만 사용한다. 구조 작업 중 본문이 비어 계약을 만족하지 못할 때만 허용한다
@@ -70,9 +93,11 @@ description: Obsidian Vault 작업의 진입점 스킬. 노트 작성, 리라이
 
 - 하위 스킬을 한꺼번에 전부 읽지 않는다. 현재 단계에 필요한 것만 읽는다
 - 사용자에게 내부 스킬명을 반복 설명하지 않는다. 필요할 때만 짧게 드러낸다
+- 사용자가 "어느 스킬 써?"라고 먼저 묻지 않은 이상 내부 분류 과정을 의사결정 부담으로 넘기지 않는다
 - 사용자가 이미 준 제약, 범위, 언어, 우선순위를 다음 단계에서 다시 묻지 않는다
 - 초안 전에는 사용자가 보게 될 작업 계획을 숨기지 않는다. 섹션 흐름, 전개 방식, 가독성 개선 포인트를 먼저 짧게 보여준다
 - 초안 후 사용자가 불만족하면 처음부터 다시 묻지 말고, 직전 브레인스토밍 맥락에서 이어서 조정한다
+- 구조 후속이 필요해도 본문 초안과 한 덩어리로 뭉개지지 않게 분리한다
 - 다른 노트/섹션/산출물로 focus가 전환되면, 이전 문서의 포맷 기억은 기본적으로 리셋한다
 - 이전 브레인스토밍 맥락이 최신 요구와 충돌할 가능성이 보이면 추측하지 말고 짧게 확인한다
 - 직전 문서와 비슷하게 만들려면 사용자의 명시적 지시가 있어야 한다

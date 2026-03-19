@@ -6,3 +6,10 @@
 
 # Local test vaults
 obsidian_tests/
+
+# Python cache files
+*.pyc
+**/__pycache__/
+
+# Generated skill evaluation workspaces
+skills/*-workspace/

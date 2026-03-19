@@ -8,6 +8,7 @@
 | "더 좋아지게", "가독성", "뭔가 이상해", "마음에 안 들어", "같이 고민하자" | `note-brainstorming` | 품질 개선 대화가 우선 |
 | "노트 써줘", "초안 작성", "리라이트", "요약해서 노트로" | `vault-content` | 본문/구조 설계 중심 |
 | "frontmatter 맞춰", "모듈 만들기", "파일 옮겨", "검증해" | `vault-manage` | 구조/계약 적용 중심 |
+| "이미지만 따줘", "광고 없이 포스터만", "웹페이지 사진 레퍼런스 저장" | `playwright-image-reference` | 웹 이미지 확보 중심 |
 
 ## Tie-Breakers
 
@@ -15,6 +16,7 @@
 - 파일 계약과 위치가 바뀌면 `vault-manage`
 - 아직 결론보다 질문이 더 중요하면 `note-brainstorming`
 - 노트의 품질을 더 높이기 위한 대화 의도가 보이면 `note-brainstorming`
+- 웹페이지 설명보다 이미지 자체를 깨끗하게 확보하는 일이 핵심이면 `playwright-image-reference`
 - 사용자가 명시한 note-type은 가능한 한 유지한다
 - 사용자가 실행 신호를 주면 브레인스토밍을 멈추고 작성 단계로 넘어간다
 - 초안 후 만족하지 않으면 브레인스토밍으로 다시 들어간다
@@ -26,6 +28,8 @@
 
 - `note-brainstorming -> plan 공개 -> vault-content`
 - `vault-content -> vault-manage`
+- `playwright-image-reference -> vault-content`
+- `playwright-image-reference -> vault-manage`
 - `note-brainstorming -> plan 공개 -> vault-content -> vault-manage`
 - `note-brainstorming -> vault-content -> note-brainstorming -> vault-content`
 
