@@ -5,6 +5,7 @@ It is organized for `skills.sh` discovery and can be installed into supported ag
 
 ## Included skills
 
+- `note-exploration`: Expands pre-writing directions, questions, contrasts, and example candidates before a note draft exists.
 - `vault-content`: Focuses on note-type decisions, note structure, writing, and rewrites.
 - `vault-manage`: Focuses on file contracts, frontmatter validation, module placement, and vault governance.
 - `playwright-image-reference`: Captures clean image references from websites with Playwright MCP.
@@ -15,6 +16,10 @@ This repository intentionally uses a multi-skill layout:
 
 ```text
 skills/
+├── note-exploration/
+│   ├── SKILL.md
+│   ├── evals/
+│   └── references/
 ├── playwright-image-reference/
 │   └── SKILL.md
 ├── vault-content/
