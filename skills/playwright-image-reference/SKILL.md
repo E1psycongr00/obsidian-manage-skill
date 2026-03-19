@@ -1,12 +1,19 @@
 ---
 name: playwright-image-reference
-description: Use when collecting image references from websites with Playwright MCP, especially when the image itself should be captured cleanly for notes, evidence, or visual references.
+description: 웹사이트에서 노트용 이미지 레퍼런스를 깨끗하게 확보하는 스킬. 사용자가 `이 페이지에서 포스터만 따줘`, `광고 없이 이미지 자체만 캡처해줘`, `무드보드 참고용 이미지를 저장하고 싶어`, `제품 사진만 깨끗하게 남겨줘`처럼 웹 이미지를 자체 자산으로 남기려 할 때 바로 사용한다. 페이지 설명보다 이미지 자체의 품질과 출처 정리가 더 중요할 때 우선한다.
 ---
 
 # Playwright Image Reference
 
-웹페이지에서 `이미지 레퍼런스 자체`를 확보할 때만 사용한다.
-핵심은 페이지 설명이 아니라 이미지 자체를 깨끗하게 가져오는 것이다.
+웹페이지에서 `이미지 레퍼런스 자체`를 확보할 때 쓰는 스킬이다.
+핵심은 페이지 요약이 아니라, 노트에 바로 첨부할 수 있는 깨끗한 이미지와 출처 메모를 남기는 것이다.
+
+## 바로 이 스킬을 켜야 하는 신호
+
+- 웹페이지 전체가 아니라 특정 이미지, 포스터, 썸네일, 제품 사진만 필요하다.
+- 사용자가 `UI 없이`, `광고 없이`, `이미지 자체만`, `레퍼런스로 저장`을 원한다.
+- 기사나 쇼핑 페이지에서 텍스트보다 비주얼 자료 확보가 우선이다.
+- 캡처한 이미지를 나중에 Obsidian 노트, evidence, moodboard에 재사용하려 한다.
 
 ## 사용할 때
 
@@ -18,6 +25,7 @@ description: Use when collecting image references from websites with Playwright 
 
 - 기본 도구는 Playwright MCP다.
 - Playwright MCP를 쓸 수 없으면 무리하게 대체하지 말고 막힌 이유를 짧게 알린다.
+- 저장 위치나 파일명이 중요하면 캡처 전에 현재 작업 디렉터리와 저장 규칙을 먼저 확인한다.
 
 ## 기본 원칙
 
@@ -26,13 +34,23 @@ description: Use when collecting image references from websites with Playwright 
 - 가능하면 원본 이미지 URL 또는 이미지 element 자체를 우선 사용한다.
 - 기사 본문이나 텍스트 블록은 이미지가 없더라도 기본 레퍼런스로 대체하지 않는다.
 - 포스터/썸네일 자체의 텍스트는 허용하지만 사이트 UI 텍스트는 최대한 제외한다.
+- 어수선한 여러 장보다, 바로 쓸 수 있는 좋은 캡처 1~3장을 남기는 쪽을 우선한다.
+- 후보가 여러 개면 어떤 이미지를 골랐는지 이유를 한 줄 남긴다.
 
 ## 권장 워크플로
 
 1. 페이지를 열고 이미지 후보를 찾는다.
-2. 가능하면 `img`, `picture`, `figure` 안의 실제 이미지 소스를 확인한다.
+2. 가능하면 `img`, `picture`, `figure` 안의 실제 이미지 소스와 표시 영역을 확인한다.
 3. 캡처는 `원본 이미지 URL -> 이미지 element -> 이미지 중심 컨테이너` 순으로 시도한다.
-4. 캡처 후에는 반드시 다시 보고 통과 여부를 확인한다.
+4. 캡처 후에는 반드시 다시 보고, 잘림·UI 노출·저화질 여부를 확인한다.
+5. 최종 저장 시 원본 페이지 URL과 필요하면 직접 이미지 URL도 함께 남긴다.
+
+## 다시 캡처해야 하는 경우
+
+- 사이트 헤더, 배너, 광고, 버튼, 스크롤바가 보인다.
+- 이미지가 잘렸거나 여백이 지나치게 많다.
+- 원본보다 흐리거나 압축 손상이 심하다.
+- 이미지가 무엇을 보여주는지 한눈에 드러나지 않는다.
 
 ## Self-check
 
@@ -43,6 +61,13 @@ description: Use when collecting image references from websites with Playwright 
 
 ## 결과 정리
 
-- 이미지 파일을 남긴다.
+- 이미지 파일 경로 또는 파일명을 남긴다.
 - 원본 페이지 URL을 함께 남긴다.
+- 확인할 수 있으면 직접 이미지 URL도 함께 남긴다.
 - 왜 이 이미지가 필요한지 1~2문장만 짧게 덧붙인다.
+
+## 금지
+
+- 전체 페이지 스크린샷을 `이미지 레퍼런스`라고 포장하지 않는다.
+- 텍스트 본문이 더 중요한 페이지를 이미지 작업처럼 처리하지 않는다.
+- 캡처 품질이 기준에 못 미치는데도 첫 시도로 끝내지 않는다.

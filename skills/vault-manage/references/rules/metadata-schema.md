@@ -140,6 +140,7 @@ created: YYYY-MM-DD
 title: 🔍 제목
 note-type: REVIEW
 target-note:           # 링크 - 리뷰 대상 노트
+description:
 last-updated: YYYY-MM-DD
 ---
 ```
